@@ -19,7 +19,10 @@ class Contact {
         self.weight = weight
     }
 
-    func performActivity(caloriesBurned: Int) {
-        weight -= Double(caloriesBurned) / 500
+    func performActivity(caloriesBurned: Int) -> Double {
+        let activityWeight = Double(caloriesBurned) / 500
+        weight -= activityWeight
+
+        return activityWeight
     }
 }

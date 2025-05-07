@@ -13,6 +13,8 @@ struct SportView: View {
     let sport: Sport
     let user: Contact = .me
     @State var secondsElapsed: Int = 0
+    @State var isStarted = false
+    @State var weightDecreased: Double = 0
 
     var completion: Double {
         let percentage = Double(secondsElapsed)/Double(sport.duration)
@@ -20,32 +22,60 @@ struct SportView: View {
     }
 
     var body: some View {
-        VStack {
-            VStack {
-                Text("Performing")
-                    .font(.title3)
+        VStack(spacing: 8) {
+            if isStarted {
+                VStack {
+                    Text("Performing")
+                        .font(.title3)
 
+                    Text("\(sport.name)")
+                        .font(.largeTitle)
+                }
+                .padding(30)
+
+                ProgressView(value: completion)
+                    .padding(.horizontal, 100)
+            }
+            else {
                 Text("\(sport.name)")
                     .font(.largeTitle)
-            }
-            .padding(30)
+                    .bold()
 
-            ProgressView(value: completion)
-                .padding(.horizontal, 100)
+                if weightDecreased <= 0 {
+                    Text("Decrease your weight by\nburning off \(sport.caloriesBurned) calories")
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+
+                    Button {
+                        startExercise()
+                    } label: {
+                        Text("Start")
+                            .font(.title2)
+                            .frame(width: 200, height: 44)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                else {
+                    Text("Weight decreased by \(String(format: "%.2f", weightDecreased))kg")
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom)
+
+                }
+            }
         }
         .navigationTitle("Exercising")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear(perform: handleTimer)
     }
 
-    func handleTimer() {
+    func startExercise() {
+        isStarted = true
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) {
             timer in
             secondsElapsed += 1
             if secondsElapsed > sport.duration {
-                user.performActivity(caloriesBurned: sport.caloriesBurned)
+                weightDecreased = user.performActivity(caloriesBurned: sport.caloriesBurned)
                 timer.invalidate()
-                dismiss()
+                isStarted = false
             }
         }
     }
