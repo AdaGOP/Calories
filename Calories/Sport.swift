@@ -7,12 +7,14 @@
 
 import Foundation
 
+// TODO: Step 2 - Convert to class
 struct Sport: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let duration = 3
     let caloriesBurned: Int
 
+    // TODO: Step 1 - Change the value and see the result
     static let topExercises = [
         Sport(name: "Badminton", caloriesBurned: 500),
         Sport(name: "Soccer", caloriesBurned: 550),

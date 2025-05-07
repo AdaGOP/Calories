@@ -25,6 +25,7 @@ struct ProfileView: View {
                     .font(.largeTitle)
                     .bold()
 
+                // TODO: Step 4 - Observe
                 Text("Weight: \(String(format: "%.2f", user.weight))kg")
                     .font(.title3)
             }

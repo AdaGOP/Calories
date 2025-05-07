@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@Observable
+// TODO: Step 6 - Add @Observable
 class Contact {
     var name: String
     var weight: Double
@@ -19,6 +19,7 @@ class Contact {
         self.weight = weight
     }
 
+    // TODO: Step 3 - Observe
     func performActivity(caloriesBurned: Int) -> Double {
         let activityWeight = Double(caloriesBurned) / 500
         weight -= activityWeight
