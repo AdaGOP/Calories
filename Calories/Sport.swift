@@ -7,12 +7,20 @@
 
 import Foundation
 
-// TODO: Step 2 - Convert to class
+// TODO: Step 6 - Convert to class
 struct Sport: Identifiable, Hashable {
     let id = UUID()
     let name: String
     let duration = 3
     let caloriesBurned: Int
+
+    static func == (lhs: Sport, rhs: Sport) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 
     // TODO: Step 1 - Change the value and see the result
     static let topExercises = [

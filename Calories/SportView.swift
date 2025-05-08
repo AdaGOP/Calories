@@ -74,7 +74,7 @@ struct SportView: View {
             secondsElapsed += 1
             if secondsElapsed > sport.duration {
 
-                // TODO: Step 5 - Observe
+                // TODO: Step 3 - Observe
                 weightDecreased = user.performActivity(caloriesBurned: sport.caloriesBurned)
                 timer.invalidate()
                 isStarted = false
